@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/presentation/screens/create_task_screen.dart';
 
 import 'presentation/screens/home_screen.dart';
 
@@ -11,6 +12,7 @@ class AppWidget extends StatelessWidget {
       initialRoute: "/home",
       routes: {
         "/home": (context) => const HomeScreen(),
+        "/create task": (context) => const CreateTaskScreen()
       }
     );
   }
