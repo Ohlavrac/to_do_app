@@ -10,13 +10,30 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    Map<String, String> monthsMap = {
+      "1": "Janeiro",
+      "2": "Fevereiro",
+      "3": "Março",
+      "4": "Abril",
+      "5": "Maio",
+      "6": "Junho",
+      "7": "Julho",
+      "8": "Agosto",
+      "9": "Setembro",
+      "10": "Outubro",
+      "11": "Novembro",
+      "12": "Dezembro"
+    };
+
     return Scaffold(
       appBar: AppBar(
+        forceMaterialTransparency: true,
         title: RichText(
-          text: const TextSpan(
+          text: TextSpan(
             children: [
-              TextSpan(text: "10 Julho, 2024\n", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
-              TextSpan(text: "5 imcompletas, 5 completas")
+              TextSpan(text: "${now.day} ${monthsMap[now.month.toString()]}, ${now.year}\n", style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+              const TextSpan(text: "5 imcompletas, 5 completas")
             ]
           ),
         )        
@@ -45,7 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         text: TextSpan(
                           children: [
                             TextSpan(text: "Atividade Numero $index\n", style: const TextStyle(fontSize: 18, color: Colors.black87)),
-                            const TextSpan(text: "Bagulho doido cara", style: TextStyle(color: Colors.black45))
+                            const WidgetSpan(child: Icon(Icons.lock, size: 16,)),
+                            const TextSpan(text: "  Bagulho doido cara", style: TextStyle(color: Colors.black45))
                           ]
                         ),
                       )
@@ -69,6 +87,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {},
       ),
     );
   }
