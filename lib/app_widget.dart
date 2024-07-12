@@ -12,7 +12,7 @@ class AppWidget extends StatelessWidget {
       initialRoute: "/home",
       routes: {
         "/home": (context) => const HomeScreen(),
-        "/create task": (context) => const CreateTaskScreen()
+        "/createtask": (context) => const CreateTaskScreen()
       }
     );
   }
