@@ -17,6 +17,8 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
 
   Map<String, String> textsInputs = {};
 
+  List<TextEditingController> textControllers = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +37,8 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                   _controller.clear();
                 }
                 setState(() {
+                  textControllers.add(TextEditingController());
+                  textControllers[0].text = value;
                   enableSubTaks = true;
                   subTasksCount+=1;
                 });
@@ -57,7 +61,8 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
               itemCount: subTasksCount,
               itemBuilder: (context, index) {
                 return TextFormField(
-                  initialValue: tempValue.isEmpty ? "" : tempValue,
+                  controller: textControllers[index],
+                  //initialValue: tempValue.isEmpty ? "" : tempValue,
                   autofocus: true,
                   onFieldSubmitted: (value) {
                     if (index >= 0) {
@@ -67,6 +72,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                       textsInputs[index.toString()] = value;
                       setState(() {
                         subTasksCount+=1;
+                        textControllers.add(TextEditingController());
                       });
                     }
                   },
@@ -74,6 +80,15 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                   decoration: InputDecoration(
                     hintText: "",
                     prefixIcon: const Icon(Icons.check_box_outline_blank, size: 24,),
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.red,),
+                      onPressed: () {
+                        setState(() {
+                          textsInputs.remove(index.toString());
+                          subTasksCount--;
+                        });
+                      },
+                    ),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
                         borderSide: BorderSide.none),
@@ -86,6 +101,10 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          setState(() {
+            textsInputs["1"] = "SALVE SALVE FAMILIA";
+            textControllers[1].text = "SALVE SALVE FAMILIA";
+          });
           print(enableSubTaks);
           print(subTasksCount);
           print(textsInputs);
