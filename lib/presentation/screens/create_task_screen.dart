@@ -14,6 +14,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
   int subTasksCount = 0;
   String title = "";
   String tempValue = "";
+  String lastSubTask = "";
 
   Map<String, String> textsInputs = {};
 
@@ -62,9 +63,12 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
               itemBuilder: (context, index) {
                 return TextFormField(
                   controller: textControllers[index],
-                  //initialValue: tempValue.isEmpty ? "" : tempValue,
                   autofocus: true,
+                  onChanged: (value) {
+                    lastSubTask = value;
+                  },
                   onFieldSubmitted: (value) {
+                    lastSubTask = "";
                     if (index >= 0) {
                       tempValue = "";
                     }
@@ -85,6 +89,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                       onPressed: () {
                         setState(() {
                           textsInputs.remove(index.toString());
+                          textControllers.removeAt(index);
                           subTasksCount--;
                         });
                       },
@@ -102,12 +107,11 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
-            textsInputs["1"] = "SALVE SALVE FAMILIA";
-            textControllers[1].text = "SALVE SALVE FAMILIA";
+            int lastKey = textsInputs.length+1;
+            textsInputs[lastKey.toString()] = lastSubTask;
+            textControllers.add(TextEditingController());
+            //TODO: CREATE A FUNC TO SAVE WHEN USER CLICK IN OK
           });
-          print(enableSubTaks);
-          print(subTasksCount);
-          print(textsInputs);
         },
         child: const Text("OK"),
       ),
