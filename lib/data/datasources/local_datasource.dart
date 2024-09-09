@@ -9,6 +9,6 @@ class LocalDatasource implements ILocalDatasource {
   Future<void> save(TasksDto task) async {
     final prefs = await SharedPreferences.getInstance();
     String taskJson = jsonEncode(task.toJson());
-    await prefs.setString("${task.id}", taskJson);
+    await prefs.setString(task.id, taskJson);
   }
 }

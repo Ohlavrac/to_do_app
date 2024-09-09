@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do_app/domain/entities/task_entity.dart';
+import 'package:to_do_app/presentation/providers/task_provider.dart';
+import 'package:uuid/uuid.dart';
 
 class CreateTaskScreen extends StatefulWidget {
   const CreateTaskScreen({super.key});
@@ -22,6 +26,9 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var taskProvider = Provider.of<TaskProvider>(context);
+    const uuid = Uuid();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Nova Tarefa", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
@@ -111,6 +118,10 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
             textsInputs[lastKey.toString()] = lastSubTask;
             textControllers.add(TextEditingController());
             //TODO: CREATE A FUNC TO SAVE WHEN USER CLICK IN OK
+            List<String> subtasksList = textsInputs.values.map((value) => value.toString()).toList();
+            TaskEntity task = TaskEntity(id: uuid.v1(), title: title, subtasks: subtasksList);
+            print("Suvaco DOIDODODODODO $task");
+            taskProvider.saveTask(task);
           });
         },
         child: const Text("OK"),
