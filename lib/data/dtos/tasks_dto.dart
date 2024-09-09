@@ -1,8 +1,7 @@
 import 'package:to_do_app/domain/entities/task_entity.dart';
-import 'package:uuid/uuid.dart';
 
 class TasksDto {
-  Uuid id;
+  String id;
   String? title;
   List<String?>? subtasks;
 

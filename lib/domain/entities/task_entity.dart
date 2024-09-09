@@ -1,7 +1,5 @@
-import 'package:uuid/uuid.dart';
-
 class TaskEntity {
-  Uuid? id;
+  String? id;
   String? title;
   List<String?>? subtasks;
 
